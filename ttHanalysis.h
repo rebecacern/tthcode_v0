@@ -485,11 +485,12 @@ ttHanalysis::ttHanalysis(TTree *tree) : fChain(0)
   // if parameter tree is not specified (or zero), connect the file
   // used to generate this class and read the Tree.
   if (tree == 0) {
-    TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("../tuples/synch_full.root");
+    TFile *f =
+    (TFile*)gROOT->GetListOfFiles()->FindObject("../tuples/synch_full_second.root");
     if (!f || !f->IsOpen()) {
-      f = new TFile("../tuples/synch_full.root");
+      f = new TFile("../tuples/synch_full_second.root");
     }
-    TDirectory * dir = (TDirectory*)f->Get("../tuples/synch_full.root:/OSTwoLepAna");
+    TDirectory * dir = (TDirectory*)f->Get("../tuples/synch_full_second.root:/OSTwoLepAna");
     dir->GetObject("summaryTree",tree);
 
   }
