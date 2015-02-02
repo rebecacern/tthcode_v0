@@ -12,7 +12,6 @@
 #include <TChain.h>
 #include <TFile.h>
 
-
 // Fixed size dimensions of array or collections stored in the TTree if any.
    const Int_t kMaxpreselected_leptons = 5;
    const Int_t kMaxpreselected_electrons = 4;
@@ -469,6 +468,7 @@ public :
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
    virtual void     Loop();
+   void myLoop(int nsel, int mode, bool silent);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
 };

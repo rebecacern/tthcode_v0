@@ -3,9 +3,30 @@
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
+#include <TH1.h>
 
-void ttHanalysis::Loop()
+void ttHanalysis::Loop(){
+// running default loop:
+myLoop(0,0,0);
+}
+
+void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
 {
+bool silent = false;
+
+  char newRootFile[300];
+  sprintf(newRootFile,"results/first.root");
+  TFile f_var(newRootFile, "RECREATE");
+  if(!silent){
+    std::cout << "[Info:] results root file " << newRootFile << std::endl;
+  }
+
+ char title[300];
+ sprintf(title,"cuts");
+ TH1F* histo = new TH1F( title, " ", 20, 0, 20 );
+ histo->Sumw2();
+
+ double weight = 1;
 
   Long64_t nentries = fChain->GetEntriesFast();
   int nused = 0;
@@ -13,31 +34,43 @@ void ttHanalysis::Loop()
     Long64_t ientry = LoadTree(jentry);
     if (ientry < 0) break;
       fChain->GetEntry(jentry);
+      histo->Fill(0., weight);
       if (!higgs_decay) continue;
-       // if (loose_muons_ + loose_electrons_ < 2) continue;
-       
-       //cout << preselected_muons_ << ", " << preselected_electrons_ << ", " << preselected_leptons_ << endl;
-       if ( preselected_muons_+ preselected_electrons_ != preselected_leptons_ ) cout << "EJEM" << endl;
-              if ( tight_muons_+ tight_electrons_ != tight_leptons_ ) cout << "EJEM" << endl;
-
-       
-        if (preselected_muons_ + preselected_electrons_ != 2) continue;
-	  //if (tight_muons_ !=2) continue;
-	  //if (preselected_muons_ !=2) continue;
-	  if (preselected_electrons_ !=2) continue;
-	    //if (preselected_muons_charge[0]!=preselected_muons_charge[1]) continue;
-	    if (preselected_electrons_charge[0]!=preselected_electrons_charge[1]) continue;
-	      //if (preselected_muons_obj_fCoordinates_fT[0] <= 20) continue;
-	        //if (preselected_muons_obj_fCoordinates_fT[1] <= 20)  continue;
-		if (preselected_electrons_obj_fCoordinates_fT[0] <= 20) continue;
-	          if (preselected_electrons_obj_fCoordinates_fT[1] <= 20)  continue;
-		  //if (preselected_muons_lepMVA[0] <= 0.7) continue;
-		   // if (preselected_muons_lepMVA[1] <= 0.7) continue;
-		   if (preselected_electrons_lepMVA[0] <= 0.7) continue;
-		    if (preselected_electrons_lepMVA[1] <= 0.7) continue;
-		   
-		    //cout << preselected_muons_chargeFlip[0] << " - " << preselected_muons_chargeFlip[1]<< endl;
-              nused++;
+        histo->Fill(1., weight);
+        if (loose_leptons_ < 2) continue;
+	  histo->Fill(2., weight);
+          if (loose_leptons_ != 2) continue;
+	    if (mode == 0 && loose_muons_ !=1) continue;
+	    if (mode == 1 && loose_muons_ !=2) continue;
+	    if (mode == 2 && loose_electrons_ !=2) continue;
+	    histo->Fill(3., weight);
+	    if (mode == 1 && loose_muons_charge[0]!=loose_muons_charge[1]) continue;
+	      histo->Fill(4., weight);
+	      if (mode == 1 && loose_muons_obj_fCoordinates_fT[0] <= 20) continue;
+	        if (mode == 1 && loose_muons_obj_fCoordinates_fT[1] <= 20)  continue;
+	          histo->Fill(5., weight);
   }
-  cout << "From " << nentries << " events, " << nused << " used" << endl;
+  
+ char label[300];
+ sprintf(label, "emu");
+ if (mode == 1) sprintf(label,"mumu");
+ if (mode == 2) sprintf(label,"ee");
+  
+  if (!silent){
+    cout << "------------------------------------------" << endl;
+    cout << "[Results:] " << endl;
+    cout << "------------------------------------------" << endl;
+    for (int i = 1; i < 9; i++){
+      if (i == 1) cout << " all: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
+      if (i == 2) cout << " higgs decay: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
+      if (i == 3) cout << " 2+ loose leptons: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
+      if (i == 4) cout << " " << label << ": " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
+      if (i == 5) cout << " SS: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
+      if (i == 6) cout << " pt > 20,20: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
+}
+cout << "------------------------------------------" << endl;
+}
+f_var.Write();
+f_var.Close();
+
 }
