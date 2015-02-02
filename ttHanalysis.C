@@ -12,7 +12,7 @@ myLoop(0,0,0);
 
 void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
 {
-bool silent = false;
+
 
   char newRootFile[300];
   sprintf(newRootFile,"results/first.root");
@@ -56,6 +56,9 @@ bool silent = false;
  if (mode == 1) sprintf(label,"mumu");
  if (mode == 2) sprintf(label,"ee");
   
+ 
+ 
+  
   if (!silent){
     cout << "------------------------------------------" << endl;
     cout << "[Results:] " << endl;
@@ -69,6 +72,9 @@ bool silent = false;
       if (i == 6) cout << " pt > 20,20: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
 }
 cout << "------------------------------------------" << endl;
+
+
+
 }
 f_var.Write();
 f_var.Close();
