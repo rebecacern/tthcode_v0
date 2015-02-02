@@ -7,7 +7,6 @@
 void ttHanalysis::Loop()
 {
 
-
   Long64_t nentries = fChain->GetEntriesFast();
   int nused = 0;
   for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -16,6 +15,12 @@ void ttHanalysis::Loop()
       fChain->GetEntry(jentry);
       if (!higgs_decay) continue;
        // if (loose_muons_ + loose_electrons_ < 2) continue;
+       
+       //cout << preselected_muons_ << ", " << preselected_electrons_ << ", " << preselected_leptons_ << endl;
+       if ( preselected_muons_+ preselected_electrons_ != preselected_leptons_ ) cout << "EJEM" << endl;
+              if ( tight_muons_+ tight_electrons_ != tight_leptons_ ) cout << "EJEM" << endl;
+
+       
         if (preselected_muons_ + preselected_electrons_ != 2) continue;
 	  //if (tight_muons_ !=2) continue;
 	  //if (preselected_muons_ !=2) continue;
@@ -36,4 +41,3 @@ void ttHanalysis::Loop()
   }
   cout << "From " << nentries << " events, " << nused << " used" << endl;
 }
-
