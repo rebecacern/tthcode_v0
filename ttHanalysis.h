@@ -11,6 +11,13 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
+#include <stdlib.h>
+#include <math.h> 
+#include <cmath>
+#include <TH1.h>
+#include <TH2.h>
+#include <TStyle.h>
+#include <TCanvas.h>
 
 // Header file for the classes stored in the TTree if any.
 #include <vector>

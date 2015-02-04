@@ -4,6 +4,7 @@
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
+#include <math.h>
 
 
 void ttHanalysis::Loop(){
@@ -33,6 +34,11 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
  TH1F* histo = new TH1F( title, " ", 20, 0, 20 );
  histo->Sumw2();
 
+
+  char myTexFile[300];
+  sprintf(myTexFile,"twolooselep_%d.txt", mode);
+  ofstream salida(myTexFile); 
+
  double weight = 1;
 
   Long64_t nentries = fChain->GetEntriesFast();
@@ -45,19 +51,26 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
       histo->Fill(0., weight);
       if (!higgs_decay) continue;
         histo->Fill(1., weight);
+	if (eventnum == 121086 || eventnum == 154917  || eventnum == 199853 ) cout << loose_leptons_ << endl;
         if (loose_leptons_ < 2) continue;
 	  histo->Fill(2., weight);
-          if (loose_leptons_ != 2) continue;
-	    if (mode == 0 && loose_muons_ !=1) continue;
-	    if (mode == 1 && loose_muons_ !=2) continue;
-	    if (mode == 2 && loose_electrons_ !=2) continue;
+	  if (eventnum == 121086 ) cout << "HERE" << endl;
+         salida << runNumber << "\t" << lumiBlock << "\t" << eventnum << endl;
+TVector3 lepton1(loose_leptons_obj_fCoordinates_fX[0],loose_leptons_obj_fCoordinates_fY[0],loose_leptons_obj_fCoordinates_fZ[0]); 
+	      TVector3 lepton2(loose_leptons_obj_fCoordinates_fX[1],loose_leptons_obj_fCoordinates_fY[1],loose_leptons_obj_fCoordinates_fZ[1]); 	   if (mode == 1 && (loose_leptons_obj_fCoordinates_fT[0] != loose_muons_obj_fCoordinates_fT[0] ||
+	   	loose_leptons_obj_fCoordinates_fT[1] != loose_muons_obj_fCoordinates_fT[1])) continue;
+	   if (mode == 2 && (loose_leptons_obj_fCoordinates_fT[0] != loose_electrons_obj_fCoordinates_fT[0] ||
+	   	loose_leptons_obj_fCoordinates_fT[1] != loose_electrons_obj_fCoordinates_fT[1])) continue;
+	  
 	    histo->Fill(3., weight);
+	    
 	    if (mode == 0 && loose_muons_charge[0]!=loose_electrons_charge[0]) continue;
 	    if (mode == 1 && loose_muons_charge[0]!=loose_muons_charge[1]) continue;
 	    if (mode == 2 && loose_electrons_charge[0]!=loose_electrons_charge[1]) continue;
 	      histo->Fill(4., weight);
-	      if (loose_leptons_obj_fCoordinates_fT[0] <= 20) continue;
-	        if (loose_leptons_obj_fCoordinates_fT[1] <= 20)  continue;
+	      
+	      if (lepton1.Pt() < 20) continue;
+	        if (lepton2.Pt() < 20)  continue;
 	          histo->Fill(5., weight);
   }
   
