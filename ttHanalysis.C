@@ -1,9 +1,10 @@
 #define ttHanalysis_cxx
 #include "ttHanalysis.h"
+#include <TH1.h>
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
-#include <TH1.h>
+
 
 void ttHanalysis::Loop(){
 // running default loop:
@@ -13,12 +14,18 @@ myLoop(0,0,0);
 void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
 {
 
-
+ if (mode != 0 && mode !=1 && mode !=2) mode = 0;
+ if (!silent){
+   cout << "[Info:]" ;
+   if (mode == 0) cout << " emu channel, " ;
+   else if (mode == 1) cout << " mumu channel, " ;
+   else if (mode == 2) cout << " ee channel, " ;
+  }
   char newRootFile[300];
-  sprintf(newRootFile,"results/first.root");
+  sprintf(newRootFile,"results/first_%d.root", mode);
   TFile f_var(newRootFile, "RECREATE");
   if(!silent){
-    std::cout << "[Info:] results root file " << newRootFile << std::endl;
+    std::cout << "results root file named " << newRootFile << std::endl;
   }
 
  char title[300];
@@ -30,6 +37,7 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
 
   Long64_t nentries = fChain->GetEntriesFast();
   int nused = 0;
+   if (!silent) cout << "[Info:] Number of raw events: " << nentries << endl;
   for (Long64_t jentry=0; jentry<nentries;jentry++) {
     Long64_t ientry = LoadTree(jentry);
     if (ientry < 0) break;
@@ -44,10 +52,12 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
 	    if (mode == 1 && loose_muons_ !=2) continue;
 	    if (mode == 2 && loose_electrons_ !=2) continue;
 	    histo->Fill(3., weight);
+	    if (mode == 0 && loose_muons_charge[0]!=loose_electrons_charge[0]) continue;
 	    if (mode == 1 && loose_muons_charge[0]!=loose_muons_charge[1]) continue;
+	    if (mode == 2 && loose_electrons_charge[0]!=loose_electrons_charge[1]) continue;
 	      histo->Fill(4., weight);
-	      if (mode == 1 && loose_muons_obj_fCoordinates_fT[0] <= 20) continue;
-	        if (mode == 1 && loose_muons_obj_fCoordinates_fT[1] <= 20)  continue;
+	      if (loose_leptons_obj_fCoordinates_fT[0] <= 20) continue;
+	        if (loose_leptons_obj_fCoordinates_fT[1] <= 20)  continue;
 	          histo->Fill(5., weight);
   }
   

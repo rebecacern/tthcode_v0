@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Mon Feb  2 17:38:13 2015 by ROOT version 5.34/20
+// Wed Feb  4 09:59:11 2015 by ROOT version 5.34/18
 // from TTree summaryTree/Summary Event Values
 // found on file: ../tuples/synch_full_second.root
 //////////////////////////////////////////////////////////
@@ -12,19 +12,24 @@
 #include <TChain.h>
 #include <TFile.h>
 
+// Header file for the classes stored in the TTree if any.
+#include <vector>
+#include <Math/GenVector/PxPyPzE4D.h>
+
 // Fixed size dimensions of array or collections stored in the TTree if any.
-   const Int_t kMaxpreselected_leptons = 5;
-   const Int_t kMaxpreselected_electrons = 4;
-   const Int_t kMaxpreselected_muons = 5;
-   const Int_t kMaxloose_leptons = 9;
-   const Int_t kMaxloose_electrons = 4;
-   const Int_t kMaxloose_muons = 9;
-   const Int_t kMaxtight_leptons = 4;
-   const Int_t kMaxtight_electrons = 4;
-   const Int_t kMaxtight_muons = 3;
-   const Int_t kMaxpreselected_jets = 16;
-   const Int_t kMaxloose_bJets = 1;
-   const Int_t kMaxmet = 1;
+const Int_t kMaxpreselected_leptons = 5;
+const Int_t kMaxpreselected_electrons = 4;
+const Int_t kMaxpreselected_muons = 5;
+const Int_t kMaxloose_leptons = 5;
+const Int_t kMaxloose_electrons = 4;
+const Int_t kMaxloose_muons = 5;
+const Int_t kMaxtight_leptons = 5;
+const Int_t kMaxtight_electrons = 4;
+const Int_t kMaxtight_muons = 3;
+const Int_t kMaxpreselected_jets = 16;
+const Int_t kMaxloose_bJets = 1;
+const Int_t kMaxmet = 1;
+const Int_t kMaxpruned_genParticles = 266;
 
 class ttHanalysis {
 public :
@@ -54,20 +59,25 @@ public :
    Double_t        preselected_leptons_obj_fCoordinates_fY[kMaxpreselected_leptons];   //[preselected_leptons_]
    Double_t        preselected_leptons_obj_fCoordinates_fZ[kMaxpreselected_leptons];   //[preselected_leptons_]
    Double_t        preselected_leptons_obj_fCoordinates_fT[kMaxpreselected_leptons];   //[preselected_leptons_]
-   Double_t        preselected_leptons_id[kMaxpreselected_leptons];   //[preselected_leptons_]
+   Int_t           preselected_leptons_pdgID[kMaxpreselected_leptons];   //[preselected_leptons_]
    Int_t           preselected_electrons_;
    Double_t        preselected_electrons_obj_fCoordinates_fX[kMaxpreselected_electrons];   //[preselected_electrons_]
    Double_t        preselected_electrons_obj_fCoordinates_fY[kMaxpreselected_electrons];   //[preselected_electrons_]
    Double_t        preselected_electrons_obj_fCoordinates_fZ[kMaxpreselected_electrons];   //[preselected_electrons_]
    Double_t        preselected_electrons_obj_fCoordinates_fT[kMaxpreselected_electrons];   //[preselected_electrons_]
    Double_t        preselected_electrons_SCeta[kMaxpreselected_electrons];   //[preselected_electrons_]
-   Double_t        preselected_electrons_pdgID[kMaxpreselected_electrons];   //[preselected_electrons_]
+   Int_t           preselected_electrons_pdgID[kMaxpreselected_electrons];   //[preselected_electrons_]
    Double_t        preselected_electrons_dxy[kMaxpreselected_electrons];   //[preselected_electrons_]
    Double_t        preselected_electrons_dz[kMaxpreselected_electrons];   //[preselected_electrons_]
    Int_t           preselected_electrons_charge[kMaxpreselected_electrons];   //[preselected_electrons_]
    Bool_t          preselected_electrons_isGsfCtfScPixChargeConsistent[kMaxpreselected_electrons];   //[preselected_electrons_]
    Int_t           preselected_electrons_numMissingInnerHits[kMaxpreselected_electrons];   //[preselected_electrons_]
    Bool_t          preselected_electrons_passConversioVeto[kMaxpreselected_electrons];   //[preselected_electrons_]
+   Double_t        preselected_electrons_relIso[kMaxpreselected_electrons];   //[preselected_electrons_]
+   Double_t        preselected_electrons_dEtaIn[kMaxpreselected_electrons];   //[preselected_electrons_]
+   Double_t        preselected_electrons_dPhiIn[kMaxpreselected_electrons];   //[preselected_electrons_]
+   Double_t        preselected_electrons_full5x5_sigmaIetaIeta[kMaxpreselected_electrons];   //[preselected_electrons_]
+   Double_t        preselected_electrons_hadronicOverEm[kMaxpreselected_electrons];   //[preselected_electrons_]
    Double_t        preselected_electrons_mvaID[kMaxpreselected_electrons];   //[preselected_electrons_]
    Double_t        preselected_electrons_lepMVA[kMaxpreselected_electrons];   //[preselected_electrons_]
    Double_t        preselected_electrons_chreliso[kMaxpreselected_electrons];   //[preselected_electrons_]
@@ -81,7 +91,7 @@ public :
    Double_t        preselected_muons_obj_fCoordinates_fY[kMaxpreselected_muons];   //[preselected_muons_]
    Double_t        preselected_muons_obj_fCoordinates_fZ[kMaxpreselected_muons];   //[preselected_muons_]
    Double_t        preselected_muons_obj_fCoordinates_fT[kMaxpreselected_muons];   //[preselected_muons_]
-   Double_t        preselected_muons_pdgID[kMaxpreselected_muons];   //[preselected_muons_]
+   Int_t           preselected_muons_pdgID[kMaxpreselected_muons];   //[preselected_muons_]
    Double_t        preselected_muons_dxy[kMaxpreselected_muons];   //[preselected_muons_]
    Double_t        preselected_muons_dz[kMaxpreselected_muons];   //[preselected_muons_]
    Int_t           preselected_muons_charge[kMaxpreselected_muons];   //[preselected_muons_]
@@ -89,6 +99,12 @@ public :
    Bool_t          preselected_muons_isPFMuon[kMaxpreselected_muons];   //[preselected_muons_]
    Bool_t          preselected_muons_isTrackerMuon[kMaxpreselected_muons];   //[preselected_muons_]
    Bool_t          preselected_muons_isGlobalMuon[kMaxpreselected_muons];   //[preselected_muons_]
+   Double_t        preselected_muons_relIso[kMaxpreselected_muons];   //[preselected_muons_]
+   Double_t        preselected_muons_normalizedChi2[kMaxpreselected_muons];   //[preselected_muons_]
+   Int_t           preselected_muons_numberOfValidMuonHits[kMaxpreselected_muons];   //[preselected_muons_]
+   Int_t           preselected_muons_numberOfMatchedStations[kMaxpreselected_muons];   //[preselected_muons_]
+   Int_t           preselected_muons_numberOfValidPixelHits[kMaxpreselected_muons];   //[preselected_muons_]
+   Int_t           preselected_muons_trackerLayersWithMeasurement[kMaxpreselected_muons];   //[preselected_muons_]
    Double_t        preselected_muons_lepMVA[kMaxpreselected_muons];   //[preselected_muons_]
    Double_t        preselected_muons_chreliso[kMaxpreselected_muons];   //[preselected_muons_]
    Double_t        preselected_muons_nureliso[kMaxpreselected_muons];   //[preselected_muons_]
@@ -101,20 +117,25 @@ public :
    Double_t        loose_leptons_obj_fCoordinates_fY[kMaxloose_leptons];   //[loose_leptons_]
    Double_t        loose_leptons_obj_fCoordinates_fZ[kMaxloose_leptons];   //[loose_leptons_]
    Double_t        loose_leptons_obj_fCoordinates_fT[kMaxloose_leptons];   //[loose_leptons_]
-   Double_t        loose_leptons_id[kMaxloose_leptons];   //[loose_leptons_]
+   Int_t           loose_leptons_pdgID[kMaxloose_leptons];   //[loose_leptons_]
    Int_t           loose_electrons_;
    Double_t        loose_electrons_obj_fCoordinates_fX[kMaxloose_electrons];   //[loose_electrons_]
    Double_t        loose_electrons_obj_fCoordinates_fY[kMaxloose_electrons];   //[loose_electrons_]
    Double_t        loose_electrons_obj_fCoordinates_fZ[kMaxloose_electrons];   //[loose_electrons_]
    Double_t        loose_electrons_obj_fCoordinates_fT[kMaxloose_electrons];   //[loose_electrons_]
    Double_t        loose_electrons_SCeta[kMaxloose_electrons];   //[loose_electrons_]
-   Double_t        loose_electrons_pdgID[kMaxloose_electrons];   //[loose_electrons_]
+   Int_t           loose_electrons_pdgID[kMaxloose_electrons];   //[loose_electrons_]
    Double_t        loose_electrons_dxy[kMaxloose_electrons];   //[loose_electrons_]
    Double_t        loose_electrons_dz[kMaxloose_electrons];   //[loose_electrons_]
    Int_t           loose_electrons_charge[kMaxloose_electrons];   //[loose_electrons_]
    Bool_t          loose_electrons_isGsfCtfScPixChargeConsistent[kMaxloose_electrons];   //[loose_electrons_]
    Int_t           loose_electrons_numMissingInnerHits[kMaxloose_electrons];   //[loose_electrons_]
    Bool_t          loose_electrons_passConversioVeto[kMaxloose_electrons];   //[loose_electrons_]
+   Double_t        loose_electrons_relIso[kMaxloose_electrons];   //[loose_electrons_]
+   Double_t        loose_electrons_dEtaIn[kMaxloose_electrons];   //[loose_electrons_]
+   Double_t        loose_electrons_dPhiIn[kMaxloose_electrons];   //[loose_electrons_]
+   Double_t        loose_electrons_full5x5_sigmaIetaIeta[kMaxloose_electrons];   //[loose_electrons_]
+   Double_t        loose_electrons_hadronicOverEm[kMaxloose_electrons];   //[loose_electrons_]
    Double_t        loose_electrons_mvaID[kMaxloose_electrons];   //[loose_electrons_]
    Double_t        loose_electrons_lepMVA[kMaxloose_electrons];   //[loose_electrons_]
    Double_t        loose_electrons_chreliso[kMaxloose_electrons];   //[loose_electrons_]
@@ -128,7 +149,7 @@ public :
    Double_t        loose_muons_obj_fCoordinates_fY[kMaxloose_muons];   //[loose_muons_]
    Double_t        loose_muons_obj_fCoordinates_fZ[kMaxloose_muons];   //[loose_muons_]
    Double_t        loose_muons_obj_fCoordinates_fT[kMaxloose_muons];   //[loose_muons_]
-   Double_t        loose_muons_pdgID[kMaxloose_muons];   //[loose_muons_]
+   Int_t           loose_muons_pdgID[kMaxloose_muons];   //[loose_muons_]
    Double_t        loose_muons_dxy[kMaxloose_muons];   //[loose_muons_]
    Double_t        loose_muons_dz[kMaxloose_muons];   //[loose_muons_]
    Int_t           loose_muons_charge[kMaxloose_muons];   //[loose_muons_]
@@ -136,6 +157,12 @@ public :
    Bool_t          loose_muons_isPFMuon[kMaxloose_muons];   //[loose_muons_]
    Bool_t          loose_muons_isTrackerMuon[kMaxloose_muons];   //[loose_muons_]
    Bool_t          loose_muons_isGlobalMuon[kMaxloose_muons];   //[loose_muons_]
+   Double_t        loose_muons_relIso[kMaxloose_muons];   //[loose_muons_]
+   Double_t        loose_muons_normalizedChi2[kMaxloose_muons];   //[loose_muons_]
+   Int_t           loose_muons_numberOfValidMuonHits[kMaxloose_muons];   //[loose_muons_]
+   Int_t           loose_muons_numberOfMatchedStations[kMaxloose_muons];   //[loose_muons_]
+   Int_t           loose_muons_numberOfValidPixelHits[kMaxloose_muons];   //[loose_muons_]
+   Int_t           loose_muons_trackerLayersWithMeasurement[kMaxloose_muons];   //[loose_muons_]
    Double_t        loose_muons_lepMVA[kMaxloose_muons];   //[loose_muons_]
    Double_t        loose_muons_chreliso[kMaxloose_muons];   //[loose_muons_]
    Double_t        loose_muons_nureliso[kMaxloose_muons];   //[loose_muons_]
@@ -148,20 +175,25 @@ public :
    Double_t        tight_leptons_obj_fCoordinates_fY[kMaxtight_leptons];   //[tight_leptons_]
    Double_t        tight_leptons_obj_fCoordinates_fZ[kMaxtight_leptons];   //[tight_leptons_]
    Double_t        tight_leptons_obj_fCoordinates_fT[kMaxtight_leptons];   //[tight_leptons_]
-   Double_t        tight_leptons_id[kMaxtight_leptons];   //[tight_leptons_]
+   Int_t           tight_leptons_pdgID[kMaxtight_leptons];   //[tight_leptons_]
    Int_t           tight_electrons_;
    Double_t        tight_electrons_obj_fCoordinates_fX[kMaxtight_electrons];   //[tight_electrons_]
    Double_t        tight_electrons_obj_fCoordinates_fY[kMaxtight_electrons];   //[tight_electrons_]
    Double_t        tight_electrons_obj_fCoordinates_fZ[kMaxtight_electrons];   //[tight_electrons_]
    Double_t        tight_electrons_obj_fCoordinates_fT[kMaxtight_electrons];   //[tight_electrons_]
    Double_t        tight_electrons_SCeta[kMaxtight_electrons];   //[tight_electrons_]
-   Double_t        tight_electrons_pdgID[kMaxtight_electrons];   //[tight_electrons_]
+   Int_t           tight_electrons_pdgID[kMaxtight_electrons];   //[tight_electrons_]
    Double_t        tight_electrons_dxy[kMaxtight_electrons];   //[tight_electrons_]
    Double_t        tight_electrons_dz[kMaxtight_electrons];   //[tight_electrons_]
    Int_t           tight_electrons_charge[kMaxtight_electrons];   //[tight_electrons_]
    Bool_t          tight_electrons_isGsfCtfScPixChargeConsistent[kMaxtight_electrons];   //[tight_electrons_]
    Int_t           tight_electrons_numMissingInnerHits[kMaxtight_electrons];   //[tight_electrons_]
    Bool_t          tight_electrons_passConversioVeto[kMaxtight_electrons];   //[tight_electrons_]
+   Double_t        tight_electrons_relIso[kMaxtight_electrons];   //[tight_electrons_]
+   Double_t        tight_electrons_dEtaIn[kMaxtight_electrons];   //[tight_electrons_]
+   Double_t        tight_electrons_dPhiIn[kMaxtight_electrons];   //[tight_electrons_]
+   Double_t        tight_electrons_full5x5_sigmaIetaIeta[kMaxtight_electrons];   //[tight_electrons_]
+   Double_t        tight_electrons_hadronicOverEm[kMaxtight_electrons];   //[tight_electrons_]
    Double_t        tight_electrons_mvaID[kMaxtight_electrons];   //[tight_electrons_]
    Double_t        tight_electrons_lepMVA[kMaxtight_electrons];   //[tight_electrons_]
    Double_t        tight_electrons_chreliso[kMaxtight_electrons];   //[tight_electrons_]
@@ -175,7 +207,7 @@ public :
    Double_t        tight_muons_obj_fCoordinates_fY[kMaxtight_muons];   //[tight_muons_]
    Double_t        tight_muons_obj_fCoordinates_fZ[kMaxtight_muons];   //[tight_muons_]
    Double_t        tight_muons_obj_fCoordinates_fT[kMaxtight_muons];   //[tight_muons_]
-   Double_t        tight_muons_pdgID[kMaxtight_muons];   //[tight_muons_]
+   Int_t           tight_muons_pdgID[kMaxtight_muons];   //[tight_muons_]
    Double_t        tight_muons_dxy[kMaxtight_muons];   //[tight_muons_]
    Double_t        tight_muons_dz[kMaxtight_muons];   //[tight_muons_]
    Int_t           tight_muons_charge[kMaxtight_muons];   //[tight_muons_]
@@ -183,6 +215,12 @@ public :
    Bool_t          tight_muons_isPFMuon[kMaxtight_muons];   //[tight_muons_]
    Bool_t          tight_muons_isTrackerMuon[kMaxtight_muons];   //[tight_muons_]
    Bool_t          tight_muons_isGlobalMuon[kMaxtight_muons];   //[tight_muons_]
+   Double_t        tight_muons_relIso[kMaxtight_muons];   //[tight_muons_]
+   Double_t        tight_muons_normalizedChi2[kMaxtight_muons];   //[tight_muons_]
+   Int_t           tight_muons_numberOfValidMuonHits[kMaxtight_muons];   //[tight_muons_]
+   Int_t           tight_muons_numberOfMatchedStations[kMaxtight_muons];   //[tight_muons_]
+   Int_t           tight_muons_numberOfValidPixelHits[kMaxtight_muons];   //[tight_muons_]
+   Int_t           tight_muons_trackerLayersWithMeasurement[kMaxtight_muons];   //[tight_muons_]
    Double_t        tight_muons_lepMVA[kMaxtight_muons];   //[tight_muons_]
    Double_t        tight_muons_chreliso[kMaxtight_muons];   //[tight_muons_]
    Double_t        tight_muons_nureliso[kMaxtight_muons];   //[tight_muons_]
@@ -213,6 +251,15 @@ public :
    Double_t        met_obj_fCoordinates_fT[kMaxmet];   //[met_]
    Float_t         met_pt_forSync[kMaxmet];   //[met_]
    Float_t         met_phi_forSync[kMaxmet];   //[met_]
+   Int_t           pruned_genParticles_;
+   Double_t        pruned_genParticles_obj_fCoordinates_fX[kMaxpruned_genParticles];   //[pruned_genParticles_]
+   Double_t        pruned_genParticles_obj_fCoordinates_fY[kMaxpruned_genParticles];   //[pruned_genParticles_]
+   Double_t        pruned_genParticles_obj_fCoordinates_fZ[kMaxpruned_genParticles];   //[pruned_genParticles_]
+   Double_t        pruned_genParticles_obj_fCoordinates_fT[kMaxpruned_genParticles];   //[pruned_genParticles_]
+   Int_t           pruned_genParticles_pdgID[kMaxpruned_genParticles];   //[pruned_genParticles_]
+   Int_t           pruned_genParticles_status[kMaxpruned_genParticles];   //[pruned_genParticles_]
+   Int_t           pruned_genParticles_mother_pdgID[kMaxpruned_genParticles];   //[pruned_genParticles_]
+   Int_t           pruned_genParticles_grandmother_pdgID[kMaxpruned_genParticles];   //[pruned_genParticles_]
    Int_t           numJets_fromHiggs_30;
    Int_t           numJets_fromHiggs;
    Double_t        AvgBtagDiscNonBtags;
@@ -269,7 +316,7 @@ public :
    TBranch        *b_preselected_leptons_obj_fCoordinates_fY;   //!
    TBranch        *b_preselected_leptons_obj_fCoordinates_fZ;   //!
    TBranch        *b_preselected_leptons_obj_fCoordinates_fT;   //!
-   TBranch        *b_preselected_leptons_id;   //!
+   TBranch        *b_preselected_leptons_pdgID;   //!
    TBranch        *b_preselected_electrons_;   //!
    TBranch        *b_preselected_electrons_obj_fCoordinates_fX;   //!
    TBranch        *b_preselected_electrons_obj_fCoordinates_fY;   //!
@@ -283,6 +330,11 @@ public :
    TBranch        *b_preselected_electrons_isGsfCtfScPixChargeConsistent;   //!
    TBranch        *b_preselected_electrons_numMissingInnerHits;   //!
    TBranch        *b_preselected_electrons_passConversioVeto;   //!
+   TBranch        *b_preselected_electrons_relIso;   //!
+   TBranch        *b_preselected_electrons_dEtaIn;   //!
+   TBranch        *b_preselected_electrons_dPhiIn;   //!
+   TBranch        *b_preselected_electrons_full5x5_sigmaIetaIeta;   //!
+   TBranch        *b_preselected_electrons_hadronicOverEm;   //!
    TBranch        *b_preselected_electrons_mvaID;   //!
    TBranch        *b_preselected_electrons_lepMVA;   //!
    TBranch        *b_preselected_electrons_chreliso;   //!
@@ -304,6 +356,12 @@ public :
    TBranch        *b_preselected_muons_isPFMuon;   //!
    TBranch        *b_preselected_muons_isTrackerMuon;   //!
    TBranch        *b_preselected_muons_isGlobalMuon;   //!
+   TBranch        *b_preselected_muons_relIso;   //!
+   TBranch        *b_preselected_muons_normalizedChi2;   //!
+   TBranch        *b_preselected_muons_numberOfValidMuonHits;   //!
+   TBranch        *b_preselected_muons_numberOfMatchedStations;   //!
+   TBranch        *b_preselected_muons_numberOfValidPixelHits;   //!
+   TBranch        *b_preselected_muons_trackerLayersWithMeasurement;   //!
    TBranch        *b_preselected_muons_lepMVA;   //!
    TBranch        *b_preselected_muons_chreliso;   //!
    TBranch        *b_preselected_muons_nureliso;   //!
@@ -316,7 +374,7 @@ public :
    TBranch        *b_loose_leptons_obj_fCoordinates_fY;   //!
    TBranch        *b_loose_leptons_obj_fCoordinates_fZ;   //!
    TBranch        *b_loose_leptons_obj_fCoordinates_fT;   //!
-   TBranch        *b_loose_leptons_id;   //!
+   TBranch        *b_loose_leptons_pdgID;   //!
    TBranch        *b_loose_electrons_;   //!
    TBranch        *b_loose_electrons_obj_fCoordinates_fX;   //!
    TBranch        *b_loose_electrons_obj_fCoordinates_fY;   //!
@@ -330,6 +388,11 @@ public :
    TBranch        *b_loose_electrons_isGsfCtfScPixChargeConsistent;   //!
    TBranch        *b_loose_electrons_numMissingInnerHits;   //!
    TBranch        *b_loose_electrons_passConversioVeto;   //!
+   TBranch        *b_loose_electrons_relIso;   //!
+   TBranch        *b_loose_electrons_dEtaIn;   //!
+   TBranch        *b_loose_electrons_dPhiIn;   //!
+   TBranch        *b_loose_electrons_full5x5_sigmaIetaIeta;   //!
+   TBranch        *b_loose_electrons_hadronicOverEm;   //!
    TBranch        *b_loose_electrons_mvaID;   //!
    TBranch        *b_loose_electrons_lepMVA;   //!
    TBranch        *b_loose_electrons_chreliso;   //!
@@ -351,6 +414,12 @@ public :
    TBranch        *b_loose_muons_isPFMuon;   //!
    TBranch        *b_loose_muons_isTrackerMuon;   //!
    TBranch        *b_loose_muons_isGlobalMuon;   //!
+   TBranch        *b_loose_muons_relIso;   //!
+   TBranch        *b_loose_muons_normalizedChi2;   //!
+   TBranch        *b_loose_muons_numberOfValidMuonHits;   //!
+   TBranch        *b_loose_muons_numberOfMatchedStations;   //!
+   TBranch        *b_loose_muons_numberOfValidPixelHits;   //!
+   TBranch        *b_loose_muons_trackerLayersWithMeasurement;   //!
    TBranch        *b_loose_muons_lepMVA;   //!
    TBranch        *b_loose_muons_chreliso;   //!
    TBranch        *b_loose_muons_nureliso;   //!
@@ -363,7 +432,7 @@ public :
    TBranch        *b_tight_leptons_obj_fCoordinates_fY;   //!
    TBranch        *b_tight_leptons_obj_fCoordinates_fZ;   //!
    TBranch        *b_tight_leptons_obj_fCoordinates_fT;   //!
-   TBranch        *b_tight_leptons_id;   //!
+   TBranch        *b_tight_leptons_pdgID;   //!
    TBranch        *b_tight_electrons_;   //!
    TBranch        *b_tight_electrons_obj_fCoordinates_fX;   //!
    TBranch        *b_tight_electrons_obj_fCoordinates_fY;   //!
@@ -377,6 +446,11 @@ public :
    TBranch        *b_tight_electrons_isGsfCtfScPixChargeConsistent;   //!
    TBranch        *b_tight_electrons_numMissingInnerHits;   //!
    TBranch        *b_tight_electrons_passConversioVeto;   //!
+   TBranch        *b_tight_electrons_relIso;   //!
+   TBranch        *b_tight_electrons_dEtaIn;   //!
+   TBranch        *b_tight_electrons_dPhiIn;   //!
+   TBranch        *b_tight_electrons_full5x5_sigmaIetaIeta;   //!
+   TBranch        *b_tight_electrons_hadronicOverEm;   //!
    TBranch        *b_tight_electrons_mvaID;   //!
    TBranch        *b_tight_electrons_lepMVA;   //!
    TBranch        *b_tight_electrons_chreliso;   //!
@@ -398,6 +472,12 @@ public :
    TBranch        *b_tight_muons_isPFMuon;   //!
    TBranch        *b_tight_muons_isTrackerMuon;   //!
    TBranch        *b_tight_muons_isGlobalMuon;   //!
+   TBranch        *b_tight_muons_relIso;   //!
+   TBranch        *b_tight_muons_normalizedChi2;   //!
+   TBranch        *b_tight_muons_numberOfValidMuonHits;   //!
+   TBranch        *b_tight_muons_numberOfMatchedStations;   //!
+   TBranch        *b_tight_muons_numberOfValidPixelHits;   //!
+   TBranch        *b_tight_muons_trackerLayersWithMeasurement;   //!
    TBranch        *b_tight_muons_lepMVA;   //!
    TBranch        *b_tight_muons_chreliso;   //!
    TBranch        *b_tight_muons_nureliso;   //!
@@ -428,6 +508,15 @@ public :
    TBranch        *b_met_obj_fCoordinates_fT;   //!
    TBranch        *b_met_pt_forSync;   //!
    TBranch        *b_met_phi_forSync;   //!
+   TBranch        *b_pruned_genParticles_;   //!
+   TBranch        *b_pruned_genParticles_obj_fCoordinates_fX;   //!
+   TBranch        *b_pruned_genParticles_obj_fCoordinates_fY;   //!
+   TBranch        *b_pruned_genParticles_obj_fCoordinates_fZ;   //!
+   TBranch        *b_pruned_genParticles_obj_fCoordinates_fT;   //!
+   TBranch        *b_pruned_genParticles_pdgID;   //!
+   TBranch        *b_pruned_genParticles_status;   //!
+   TBranch        *b_pruned_genParticles_mother_pdgID;   //!
+   TBranch        *b_pruned_genParticles_grandmother_pdgID;   //!
    TBranch        *b_numJets_fromHiggs_30;   //!
    TBranch        *b_numJets_fromHiggs;   //!
    TBranch        *b_AvgBtagDiscNonBtags;   //!
@@ -559,7 +648,7 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("preselected_leptons.obj.fCoordinates.fY", preselected_leptons_obj_fCoordinates_fY, &b_preselected_leptons_obj_fCoordinates_fY);
    fChain->SetBranchAddress("preselected_leptons.obj.fCoordinates.fZ", preselected_leptons_obj_fCoordinates_fZ, &b_preselected_leptons_obj_fCoordinates_fZ);
    fChain->SetBranchAddress("preselected_leptons.obj.fCoordinates.fT", preselected_leptons_obj_fCoordinates_fT, &b_preselected_leptons_obj_fCoordinates_fT);
-   fChain->SetBranchAddress("preselected_leptons.id", preselected_leptons_id, &b_preselected_leptons_id);
+   fChain->SetBranchAddress("preselected_leptons.pdgID", preselected_leptons_pdgID, &b_preselected_leptons_pdgID);
    fChain->SetBranchAddress("preselected_electrons", &preselected_electrons_, &b_preselected_electrons_);
    fChain->SetBranchAddress("preselected_electrons.obj.fCoordinates.fX", preselected_electrons_obj_fCoordinates_fX, &b_preselected_electrons_obj_fCoordinates_fX);
    fChain->SetBranchAddress("preselected_electrons.obj.fCoordinates.fY", preselected_electrons_obj_fCoordinates_fY, &b_preselected_electrons_obj_fCoordinates_fY);
@@ -573,6 +662,11 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("preselected_electrons.isGsfCtfScPixChargeConsistent", preselected_electrons_isGsfCtfScPixChargeConsistent, &b_preselected_electrons_isGsfCtfScPixChargeConsistent);
    fChain->SetBranchAddress("preselected_electrons.numMissingInnerHits", preselected_electrons_numMissingInnerHits, &b_preselected_electrons_numMissingInnerHits);
    fChain->SetBranchAddress("preselected_electrons.passConversioVeto", preselected_electrons_passConversioVeto, &b_preselected_electrons_passConversioVeto);
+   fChain->SetBranchAddress("preselected_electrons.relIso", preselected_electrons_relIso, &b_preselected_electrons_relIso);
+   fChain->SetBranchAddress("preselected_electrons.dEtaIn", preselected_electrons_dEtaIn, &b_preselected_electrons_dEtaIn);
+   fChain->SetBranchAddress("preselected_electrons.dPhiIn", preselected_electrons_dPhiIn, &b_preselected_electrons_dPhiIn);
+   fChain->SetBranchAddress("preselected_electrons.full5x5_sigmaIetaIeta", preselected_electrons_full5x5_sigmaIetaIeta, &b_preselected_electrons_full5x5_sigmaIetaIeta);
+   fChain->SetBranchAddress("preselected_electrons.hadronicOverEm", preselected_electrons_hadronicOverEm, &b_preselected_electrons_hadronicOverEm);
    fChain->SetBranchAddress("preselected_electrons.mvaID", preselected_electrons_mvaID, &b_preselected_electrons_mvaID);
    fChain->SetBranchAddress("preselected_electrons.lepMVA", preselected_electrons_lepMVA, &b_preselected_electrons_lepMVA);
    fChain->SetBranchAddress("preselected_electrons.chreliso", preselected_electrons_chreliso, &b_preselected_electrons_chreliso);
@@ -594,6 +688,12 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("preselected_muons.isPFMuon", preselected_muons_isPFMuon, &b_preselected_muons_isPFMuon);
    fChain->SetBranchAddress("preselected_muons.isTrackerMuon", preselected_muons_isTrackerMuon, &b_preselected_muons_isTrackerMuon);
    fChain->SetBranchAddress("preselected_muons.isGlobalMuon", preselected_muons_isGlobalMuon, &b_preselected_muons_isGlobalMuon);
+   fChain->SetBranchAddress("preselected_muons.relIso", preselected_muons_relIso, &b_preselected_muons_relIso);
+   fChain->SetBranchAddress("preselected_muons.normalizedChi2", preselected_muons_normalizedChi2, &b_preselected_muons_normalizedChi2);
+   fChain->SetBranchAddress("preselected_muons.numberOfValidMuonHits", preselected_muons_numberOfValidMuonHits, &b_preselected_muons_numberOfValidMuonHits);
+   fChain->SetBranchAddress("preselected_muons.numberOfMatchedStations", preselected_muons_numberOfMatchedStations, &b_preselected_muons_numberOfMatchedStations);
+   fChain->SetBranchAddress("preselected_muons.numberOfValidPixelHits", preselected_muons_numberOfValidPixelHits, &b_preselected_muons_numberOfValidPixelHits);
+   fChain->SetBranchAddress("preselected_muons.trackerLayersWithMeasurement", preselected_muons_trackerLayersWithMeasurement, &b_preselected_muons_trackerLayersWithMeasurement);
    fChain->SetBranchAddress("preselected_muons.lepMVA", preselected_muons_lepMVA, &b_preselected_muons_lepMVA);
    fChain->SetBranchAddress("preselected_muons.chreliso", preselected_muons_chreliso, &b_preselected_muons_chreliso);
    fChain->SetBranchAddress("preselected_muons.nureliso", preselected_muons_nureliso, &b_preselected_muons_nureliso);
@@ -606,7 +706,7 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("loose_leptons.obj.fCoordinates.fY", loose_leptons_obj_fCoordinates_fY, &b_loose_leptons_obj_fCoordinates_fY);
    fChain->SetBranchAddress("loose_leptons.obj.fCoordinates.fZ", loose_leptons_obj_fCoordinates_fZ, &b_loose_leptons_obj_fCoordinates_fZ);
    fChain->SetBranchAddress("loose_leptons.obj.fCoordinates.fT", loose_leptons_obj_fCoordinates_fT, &b_loose_leptons_obj_fCoordinates_fT);
-   fChain->SetBranchAddress("loose_leptons.id", loose_leptons_id, &b_loose_leptons_id);
+   fChain->SetBranchAddress("loose_leptons.pdgID", loose_leptons_pdgID, &b_loose_leptons_pdgID);
    fChain->SetBranchAddress("loose_electrons", &loose_electrons_, &b_loose_electrons_);
    fChain->SetBranchAddress("loose_electrons.obj.fCoordinates.fX", loose_electrons_obj_fCoordinates_fX, &b_loose_electrons_obj_fCoordinates_fX);
    fChain->SetBranchAddress("loose_electrons.obj.fCoordinates.fY", loose_electrons_obj_fCoordinates_fY, &b_loose_electrons_obj_fCoordinates_fY);
@@ -620,6 +720,11 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("loose_electrons.isGsfCtfScPixChargeConsistent", loose_electrons_isGsfCtfScPixChargeConsistent, &b_loose_electrons_isGsfCtfScPixChargeConsistent);
    fChain->SetBranchAddress("loose_electrons.numMissingInnerHits", loose_electrons_numMissingInnerHits, &b_loose_electrons_numMissingInnerHits);
    fChain->SetBranchAddress("loose_electrons.passConversioVeto", loose_electrons_passConversioVeto, &b_loose_electrons_passConversioVeto);
+   fChain->SetBranchAddress("loose_electrons.relIso", loose_electrons_relIso, &b_loose_electrons_relIso);
+   fChain->SetBranchAddress("loose_electrons.dEtaIn", loose_electrons_dEtaIn, &b_loose_electrons_dEtaIn);
+   fChain->SetBranchAddress("loose_electrons.dPhiIn", loose_electrons_dPhiIn, &b_loose_electrons_dPhiIn);
+   fChain->SetBranchAddress("loose_electrons.full5x5_sigmaIetaIeta", loose_electrons_full5x5_sigmaIetaIeta, &b_loose_electrons_full5x5_sigmaIetaIeta);
+   fChain->SetBranchAddress("loose_electrons.hadronicOverEm", loose_electrons_hadronicOverEm, &b_loose_electrons_hadronicOverEm);
    fChain->SetBranchAddress("loose_electrons.mvaID", loose_electrons_mvaID, &b_loose_electrons_mvaID);
    fChain->SetBranchAddress("loose_electrons.lepMVA", loose_electrons_lepMVA, &b_loose_electrons_lepMVA);
    fChain->SetBranchAddress("loose_electrons.chreliso", loose_electrons_chreliso, &b_loose_electrons_chreliso);
@@ -641,6 +746,12 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("loose_muons.isPFMuon", loose_muons_isPFMuon, &b_loose_muons_isPFMuon);
    fChain->SetBranchAddress("loose_muons.isTrackerMuon", loose_muons_isTrackerMuon, &b_loose_muons_isTrackerMuon);
    fChain->SetBranchAddress("loose_muons.isGlobalMuon", loose_muons_isGlobalMuon, &b_loose_muons_isGlobalMuon);
+   fChain->SetBranchAddress("loose_muons.relIso", loose_muons_relIso, &b_loose_muons_relIso);
+   fChain->SetBranchAddress("loose_muons.normalizedChi2", loose_muons_normalizedChi2, &b_loose_muons_normalizedChi2);
+   fChain->SetBranchAddress("loose_muons.numberOfValidMuonHits", loose_muons_numberOfValidMuonHits, &b_loose_muons_numberOfValidMuonHits);
+   fChain->SetBranchAddress("loose_muons.numberOfMatchedStations", loose_muons_numberOfMatchedStations, &b_loose_muons_numberOfMatchedStations);
+   fChain->SetBranchAddress("loose_muons.numberOfValidPixelHits", loose_muons_numberOfValidPixelHits, &b_loose_muons_numberOfValidPixelHits);
+   fChain->SetBranchAddress("loose_muons.trackerLayersWithMeasurement", loose_muons_trackerLayersWithMeasurement, &b_loose_muons_trackerLayersWithMeasurement);
    fChain->SetBranchAddress("loose_muons.lepMVA", loose_muons_lepMVA, &b_loose_muons_lepMVA);
    fChain->SetBranchAddress("loose_muons.chreliso", loose_muons_chreliso, &b_loose_muons_chreliso);
    fChain->SetBranchAddress("loose_muons.nureliso", loose_muons_nureliso, &b_loose_muons_nureliso);
@@ -653,7 +764,7 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("tight_leptons.obj.fCoordinates.fY", tight_leptons_obj_fCoordinates_fY, &b_tight_leptons_obj_fCoordinates_fY);
    fChain->SetBranchAddress("tight_leptons.obj.fCoordinates.fZ", tight_leptons_obj_fCoordinates_fZ, &b_tight_leptons_obj_fCoordinates_fZ);
    fChain->SetBranchAddress("tight_leptons.obj.fCoordinates.fT", tight_leptons_obj_fCoordinates_fT, &b_tight_leptons_obj_fCoordinates_fT);
-   fChain->SetBranchAddress("tight_leptons.id", tight_leptons_id, &b_tight_leptons_id);
+   fChain->SetBranchAddress("tight_leptons.pdgID", tight_leptons_pdgID, &b_tight_leptons_pdgID);
    fChain->SetBranchAddress("tight_electrons", &tight_electrons_, &b_tight_electrons_);
    fChain->SetBranchAddress("tight_electrons.obj.fCoordinates.fX", tight_electrons_obj_fCoordinates_fX, &b_tight_electrons_obj_fCoordinates_fX);
    fChain->SetBranchAddress("tight_electrons.obj.fCoordinates.fY", tight_electrons_obj_fCoordinates_fY, &b_tight_electrons_obj_fCoordinates_fY);
@@ -667,6 +778,11 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("tight_electrons.isGsfCtfScPixChargeConsistent", tight_electrons_isGsfCtfScPixChargeConsistent, &b_tight_electrons_isGsfCtfScPixChargeConsistent);
    fChain->SetBranchAddress("tight_electrons.numMissingInnerHits", tight_electrons_numMissingInnerHits, &b_tight_electrons_numMissingInnerHits);
    fChain->SetBranchAddress("tight_electrons.passConversioVeto", tight_electrons_passConversioVeto, &b_tight_electrons_passConversioVeto);
+   fChain->SetBranchAddress("tight_electrons.relIso", tight_electrons_relIso, &b_tight_electrons_relIso);
+   fChain->SetBranchAddress("tight_electrons.dEtaIn", tight_electrons_dEtaIn, &b_tight_electrons_dEtaIn);
+   fChain->SetBranchAddress("tight_electrons.dPhiIn", tight_electrons_dPhiIn, &b_tight_electrons_dPhiIn);
+   fChain->SetBranchAddress("tight_electrons.full5x5_sigmaIetaIeta", tight_electrons_full5x5_sigmaIetaIeta, &b_tight_electrons_full5x5_sigmaIetaIeta);
+   fChain->SetBranchAddress("tight_electrons.hadronicOverEm", tight_electrons_hadronicOverEm, &b_tight_electrons_hadronicOverEm);
    fChain->SetBranchAddress("tight_electrons.mvaID", tight_electrons_mvaID, &b_tight_electrons_mvaID);
    fChain->SetBranchAddress("tight_electrons.lepMVA", tight_electrons_lepMVA, &b_tight_electrons_lepMVA);
    fChain->SetBranchAddress("tight_electrons.chreliso", tight_electrons_chreliso, &b_tight_electrons_chreliso);
@@ -688,6 +804,12 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("tight_muons.isPFMuon", tight_muons_isPFMuon, &b_tight_muons_isPFMuon);
    fChain->SetBranchAddress("tight_muons.isTrackerMuon", tight_muons_isTrackerMuon, &b_tight_muons_isTrackerMuon);
    fChain->SetBranchAddress("tight_muons.isGlobalMuon", tight_muons_isGlobalMuon, &b_tight_muons_isGlobalMuon);
+   fChain->SetBranchAddress("tight_muons.relIso", tight_muons_relIso, &b_tight_muons_relIso);
+   fChain->SetBranchAddress("tight_muons.normalizedChi2", tight_muons_normalizedChi2, &b_tight_muons_normalizedChi2);
+   fChain->SetBranchAddress("tight_muons.numberOfValidMuonHits", tight_muons_numberOfValidMuonHits, &b_tight_muons_numberOfValidMuonHits);
+   fChain->SetBranchAddress("tight_muons.numberOfMatchedStations", tight_muons_numberOfMatchedStations, &b_tight_muons_numberOfMatchedStations);
+   fChain->SetBranchAddress("tight_muons.numberOfValidPixelHits", tight_muons_numberOfValidPixelHits, &b_tight_muons_numberOfValidPixelHits);
+   fChain->SetBranchAddress("tight_muons.trackerLayersWithMeasurement", tight_muons_trackerLayersWithMeasurement, &b_tight_muons_trackerLayersWithMeasurement);
    fChain->SetBranchAddress("tight_muons.lepMVA", tight_muons_lepMVA, &b_tight_muons_lepMVA);
    fChain->SetBranchAddress("tight_muons.chreliso", tight_muons_chreliso, &b_tight_muons_chreliso);
    fChain->SetBranchAddress("tight_muons.nureliso", tight_muons_nureliso, &b_tight_muons_nureliso);
@@ -718,6 +840,15 @@ void ttHanalysis::Init(TTree *tree)
    fChain->SetBranchAddress("met.obj.fCoordinates.fT", met_obj_fCoordinates_fT, &b_met_obj_fCoordinates_fT);
    fChain->SetBranchAddress("met.pt_forSync", met_pt_forSync, &b_met_pt_forSync);
    fChain->SetBranchAddress("met.phi_forSync", met_phi_forSync, &b_met_phi_forSync);
+   fChain->SetBranchAddress("pruned_genParticles", &pruned_genParticles_, &b_pruned_genParticles_);
+   fChain->SetBranchAddress("pruned_genParticles.obj.fCoordinates.fX", pruned_genParticles_obj_fCoordinates_fX, &b_pruned_genParticles_obj_fCoordinates_fX);
+   fChain->SetBranchAddress("pruned_genParticles.obj.fCoordinates.fY", pruned_genParticles_obj_fCoordinates_fY, &b_pruned_genParticles_obj_fCoordinates_fY);
+   fChain->SetBranchAddress("pruned_genParticles.obj.fCoordinates.fZ", pruned_genParticles_obj_fCoordinates_fZ, &b_pruned_genParticles_obj_fCoordinates_fZ);
+   fChain->SetBranchAddress("pruned_genParticles.obj.fCoordinates.fT", pruned_genParticles_obj_fCoordinates_fT, &b_pruned_genParticles_obj_fCoordinates_fT);
+   fChain->SetBranchAddress("pruned_genParticles.pdgID", pruned_genParticles_pdgID, &b_pruned_genParticles_pdgID);
+   fChain->SetBranchAddress("pruned_genParticles.status", pruned_genParticles_status, &b_pruned_genParticles_status);
+   fChain->SetBranchAddress("pruned_genParticles.mother_pdgID", pruned_genParticles_mother_pdgID, &b_pruned_genParticles_mother_pdgID);
+   fChain->SetBranchAddress("pruned_genParticles.grandmother_pdgID", pruned_genParticles_grandmother_pdgID, &b_pruned_genParticles_grandmother_pdgID);
    fChain->SetBranchAddress("numJets_fromHiggs_30", &numJets_fromHiggs_30, &b_numJets_fromHiggs_30);
    fChain->SetBranchAddress("numJets_fromHiggs", &numJets_fromHiggs, &b_numJets_fromHiggs);
    fChain->SetBranchAddress("AvgBtagDiscNonBtags", &AvgBtagDiscNonBtags, &b_AvgBtagDiscNonBtags);

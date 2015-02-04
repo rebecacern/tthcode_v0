@@ -2,7 +2,7 @@
 #include "TSystem.h"
 #include <time.h>
 
-void chain(int nsel = 0, int mode = 1, bool silent = false){
+void chain(int nsel = 0, int mode = 0, bool silent = false){
  
    //clock_t start_t, end_t, total_t;
    //start_t = clock();
