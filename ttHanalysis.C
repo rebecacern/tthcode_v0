@@ -1,10 +1,8 @@
 #define ttHanalysis_cxx
 #include "ttHanalysis.h"
-#include <TH1.h>
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
-#include <math.h>
 
 
 void ttHanalysis::Loop(){
@@ -23,7 +21,7 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
     else if (mode == 2) cout << " ee channel, " ;
   }
   char newRootFile[300];
-  sprintf(newRootFile,"results/first_%d.root", mode);
+  sprintf(newRootFile,"results/first_loose_%d.root", mode);
   TFile f_var(newRootFile, "RECREATE");
   if(!silent){
     std::cout << "results root file named " << newRootFile << std::endl;
@@ -34,11 +32,13 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
   TH1F* histo = new TH1F( title, " ", 20, 0, 20 );
   histo->Sumw2();
 
-
-  char myTexFile[300];
+  /*char myTexFile[300];
   sprintf(myTexFile,"twolooselep_%d.txt", mode);
   ofstream salida(myTexFile); 
-
+  if(!silent){
+    std::cout << "[Info:] text file named " << myTexFile << std::endl;
+  }*/
+  
   double weight = 1;
 
   Long64_t nentries = fChain->GetEntriesFast();
@@ -51,27 +51,40 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
     histo->Fill(0., weight);
     if (!higgs_decay) continue;
     histo->Fill(1., weight);
-    if (eventnum == 121086 || eventnum == 154917  || eventnum == 199853 ) cout << loose_leptons_ << endl;
     if (loose_leptons_ < 2) continue;
     histo->Fill(2., weight);
-    if (eventnum == 121086 ) cout << "HERE" << endl;
-    salida << runNumber << "\t" << lumiBlock << "\t" << eventnum << endl;
+   
     TVector3 lepton1(loose_leptons_obj_fCoordinates_fX[0],loose_leptons_obj_fCoordinates_fY[0],loose_leptons_obj_fCoordinates_fZ[0]); 
-    TVector3 lepton2(loose_leptons_obj_fCoordinates_fX[1],loose_leptons_obj_fCoordinates_fY[1],loose_leptons_obj_fCoordinates_fZ[1]); 	   if (mode == 1 && (loose_leptons_obj_fCoordinates_fT[0] != loose_muons_obj_fCoordinates_fT[0] ||
-																			     loose_leptons_obj_fCoordinates_fT[1] != loose_muons_obj_fCoordinates_fT[1])) continue;
+    TVector3 lepton2(loose_leptons_obj_fCoordinates_fX[1],loose_leptons_obj_fCoordinates_fY[1],loose_leptons_obj_fCoordinates_fZ[1]); 	   
+   
+    bool goodemu = false;
+    if (mode == 0 && loose_muons_ !=0 && loose_electrons_ != 0){
+     if (loose_leptons_obj_fCoordinates_fT[0] == loose_muons_obj_fCoordinates_fT[0] 
+      && loose_leptons_obj_fCoordinates_fT[1] == loose_electrons_obj_fCoordinates_fT[0]) goodemu = true;
+     if (loose_leptons_obj_fCoordinates_fT[1] == loose_muons_obj_fCoordinates_fT[0] 
+      && loose_leptons_obj_fCoordinates_fT[0] == loose_electrons_obj_fCoordinates_fT[0]) goodemu = true; 
+    }
+     
+    if (mode == 0 && !goodemu) continue;
+    if (mode == 1 && (loose_leptons_obj_fCoordinates_fT[0] != loose_muons_obj_fCoordinates_fT[0] ||
+    		      loose_leptons_obj_fCoordinates_fT[1] != loose_muons_obj_fCoordinates_fT[1])) continue;
     if (mode == 2 && (loose_leptons_obj_fCoordinates_fT[0] != loose_electrons_obj_fCoordinates_fT[0] ||
 		      loose_leptons_obj_fCoordinates_fT[1] != loose_electrons_obj_fCoordinates_fT[1])) continue;
+	  
 	  
     histo->Fill(3., weight);
 	    
     if (mode == 0 && loose_muons_charge[0]!=loose_electrons_charge[0]) continue;
     if (mode == 1 && loose_muons_charge[0]!=loose_muons_charge[1]) continue;
     if (mode == 2 && loose_electrons_charge[0]!=loose_electrons_charge[1]) continue;
+    
     histo->Fill(4., weight);
 	      
     if (lepton1.Pt() < 20) continue;
     if (lepton2.Pt() < 20)  continue;
+   
     histo->Fill(5., weight);
+  
   }
   
   char label[300];
@@ -84,13 +97,13 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
   
   if (!silent){
     cout << "------------------------------------------" << endl;
-    cout << "[Results:] " << endl;
+    cout << "[Results:] loose leptons " << label << endl;
     cout << "------------------------------------------" << endl;
     for (int i = 1; i < 9; i++){
       if (i == 1) cout << " all: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
-      if (i == 2) cout << " higgs decay: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
+  //    if (i == 2) cout << " higgs decay: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
       if (i == 3) cout << " 2+ loose leptons: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
-      if (i == 4) cout << " " << label << ": " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
+    //  if (i == 4) cout << " " << label << ": " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
       if (i == 5) cout << " SS: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
       if (i == 6) cout << " pt > 20,20: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
     }
