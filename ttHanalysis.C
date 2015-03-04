@@ -3,6 +3,9 @@
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
+#include <TH2.h>
+#include <TStyle.h>
+#include <TCanvas.h>
 
 
 void ttHanalysis::Loop(){
@@ -21,7 +24,7 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
     else if (mode == 2) cout << " ee channel, " ;
   }
   char newRootFile[300];
-  sprintf(newRootFile,"results/first_tight_%d.root", mode);
+  sprintf(newRootFile,"results/first_preselected_%d.root", mode);
   TFile f_var(newRootFile, "RECREATE");
   if(!silent){
     std::cout << "results root file named " << newRootFile << std::endl;
@@ -33,7 +36,7 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
   histo->Sumw2();
 
   /*char myTexFile[300];
-  sprintf(myTexFile,"twotightlep_%d.txt", mode);
+  sprintf(myTexFile,"twopreselectedlep_%d.txt", mode);
   ofstream salida(myTexFile); 
   if(!silent){
     std::cout << "[Info:] text file named " << myTexFile << std::endl;
@@ -51,32 +54,32 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
     histo->Fill(0., weight);
     if (!higgs_decay) continue;
     histo->Fill(1., weight);
-    if (tight_leptons_ < 2) continue;
+    if (preselected_leptons_ < 2) continue;
     histo->Fill(2., weight);
    
-    TVector3 lepton1(tight_leptons_obj_fCoordinates_fX[0],tight_leptons_obj_fCoordinates_fY[0],tight_leptons_obj_fCoordinates_fZ[0]); 
-    TVector3 lepton2(tight_leptons_obj_fCoordinates_fX[1],tight_leptons_obj_fCoordinates_fY[1],tight_leptons_obj_fCoordinates_fZ[1]); 	   
+    TVector3 lepton1(preselected_leptons_obj_fCoordinates_fX[0],preselected_leptons_obj_fCoordinates_fY[0],preselected_leptons_obj_fCoordinates_fZ[0]); 
+    TVector3 lepton2(preselected_leptons_obj_fCoordinates_fX[1],preselected_leptons_obj_fCoordinates_fY[1],preselected_leptons_obj_fCoordinates_fZ[1]); 	   
    
     bool goodemu = false;
-    if (mode == 0 && tight_muons_ !=0 && tight_electrons_ != 0){
-     if (tight_leptons_obj_fCoordinates_fT[0] == tight_muons_obj_fCoordinates_fT[0] 
-      && tight_leptons_obj_fCoordinates_fT[1] == tight_electrons_obj_fCoordinates_fT[0]) goodemu = true;
-     if (tight_leptons_obj_fCoordinates_fT[1] == tight_muons_obj_fCoordinates_fT[0] 
-      && tight_leptons_obj_fCoordinates_fT[0] == tight_electrons_obj_fCoordinates_fT[0]) goodemu = true; 
+    if (mode == 0 && preselected_muons_ !=0 && preselected_electrons_ != 0){
+     if (preselected_leptons_obj_fCoordinates_fT[0] == preselected_muons_obj_fCoordinates_fT[0] 
+      && preselected_leptons_obj_fCoordinates_fT[1] == preselected_electrons_obj_fCoordinates_fT[0]) goodemu = true;
+     if (preselected_leptons_obj_fCoordinates_fT[1] == preselected_muons_obj_fCoordinates_fT[0] 
+      && preselected_leptons_obj_fCoordinates_fT[0] == preselected_electrons_obj_fCoordinates_fT[0]) goodemu = true; 
     }
      
     if (mode == 0 && !goodemu) continue;
-    if (mode == 1 && (tight_leptons_obj_fCoordinates_fT[0] != tight_muons_obj_fCoordinates_fT[0] ||
-    		      tight_leptons_obj_fCoordinates_fT[1] != tight_muons_obj_fCoordinates_fT[1])) continue;
-    if (mode == 2 && (tight_leptons_obj_fCoordinates_fT[0] != tight_electrons_obj_fCoordinates_fT[0] ||
-		      tight_leptons_obj_fCoordinates_fT[1] != tight_electrons_obj_fCoordinates_fT[1])) continue;
+    if (mode == 1 && (preselected_leptons_obj_fCoordinates_fT[0] != preselected_muons_obj_fCoordinates_fT[0] ||
+    		      preselected_leptons_obj_fCoordinates_fT[1] != preselected_muons_obj_fCoordinates_fT[1])) continue;
+    if (mode == 2 && (preselected_leptons_obj_fCoordinates_fT[0] != preselected_electrons_obj_fCoordinates_fT[0] ||
+		      preselected_leptons_obj_fCoordinates_fT[1] != preselected_electrons_obj_fCoordinates_fT[1])) continue;
 	  
 	  
     histo->Fill(3., weight);
 	    
-    if (mode == 0 && tight_muons_charge[0]!=tight_electrons_charge[0]) continue;
-    if (mode == 1 && tight_muons_charge[0]!=tight_muons_charge[1]) continue;
-    if (mode == 2 && tight_electrons_charge[0]!=tight_electrons_charge[1]) continue;
+    if (mode == 0 && preselected_muons_charge[0]!=preselected_electrons_charge[0]) continue;
+    if (mode == 1 && preselected_muons_charge[0]!=preselected_muons_charge[1]) continue;
+    if (mode == 2 && preselected_electrons_charge[0]!=preselected_electrons_charge[1]) continue;
     
     histo->Fill(4., weight);
 	      
@@ -97,12 +100,12 @@ void ttHanalysis::myLoop(int nsel, int mode, bool silent)()
   
   if (!silent){
     cout << "------------------------------------------" << endl;
-    cout << "[Results:] tight leptons " << label << endl;
+    cout << "[Results:] preselected leptons " << label << endl;
     cout << "------------------------------------------" << endl;
     for (int i = 1; i < 9; i++){
       if (i == 1) cout << " all: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
   //    if (i == 2) cout << " higgs decay: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
-      if (i == 3) cout << " 2+ tight leptons: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
+      if (i == 3) cout << " 2+ preselected leptons: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
     //  if (i == 4) cout << " " << label << ": " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
       if (i == 5) cout << " SS: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
       if (i == 6) cout << " pt > 20,20: " << histo->GetBinContent(i) << " +/- " << histo->GetBinError(i) << endl;
